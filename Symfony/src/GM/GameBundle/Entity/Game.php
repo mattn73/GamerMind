@@ -76,6 +76,13 @@ class Game
     private $platforms;
 
 
+
+    /**
+     * @ORM\OneToMany(targetEntity="GM\GameBundle\Entity\Comment", mappedBy="game", cascade={"remove"})
+     */
+    private $comments;
+
+
     /**
      * Get id
      *
@@ -304,5 +311,39 @@ class Game
     public function getPlatforms()
     {
         return $this->platforms;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \GM\GameBundle\Entity\Comment $comment
+     *
+     * @return Game
+     */
+    public function addComment(\GM\GameBundle\Entity\Comment $comment)
+    {
+        $this->Comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \GM\GameBundle\Entity\Comment $comment
+     */
+    public function removeComment(\GM\GameBundle\Entity\Comment $comment)
+    {
+        $this->Comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->Comments;
     }
 }

@@ -39,13 +39,13 @@ class Comment
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GM\UserBundle\Entity\User", inversedBy="User")
+     * @ORM\ManyToOne(targetEntity="GM\UserBundle\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GM\GameBundle\Entity\Game", inversedBy="applications")
+     * @ORM\ManyToOne(targetEntity="GM\GameBundle\Entity\Game", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
     private $game;

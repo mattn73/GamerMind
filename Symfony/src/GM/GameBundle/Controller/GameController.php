@@ -2,10 +2,10 @@
 
 namespace GM\GameBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use GM\GameBundle\Entity\Comment;
 use GM\GameBundle\Form\CommentType;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class GameController extends Controller
 {
@@ -42,55 +42,44 @@ class GameController extends Controller
         //     ->findBy(array('advert' => $advert))
         // ;
 
-        // Récupération des AdvertSkill de l'annonce
-        // $listAdvertSkills = $em
-        //     ->getRepository('OCPlatformBundle:AdvertSkill')
-        //     ->findBy(array('advert' => $advert))
-        // ;
+        
+        $listComment = $this->getDoctrine()
+        ->getManager()
+        ->getRepository('GMGameBundle:Comment')
+        ->myFindAll()
+        ;
+
         $comment = new Comment;
         $url = 0;
-  
+
         $form = $this->get('form.factory')->create(CommentType::class, $comment);
 
-        if ($request->isMethod('POST') ) {
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+
+            $comment = $form->getData();
+            $comment->setGame($game[0]);
+            $comment->setUser($this->getUser());
+
+            
+
+            $em = $this->getDoctrine()->getManager();
 
             $comment->setGame($game[0]);
             $comment->setUser($this->getUser());
 
             $url = $comment;
 
-            // $em = $this->getDoctrine()->getManager();
+            $em->persist($comment);
 
-           
-            
-         
+            $em->flush();
 
-            
-            // $comment->setGame($game[0]);
-            // $comment->setUser($this->getUser());
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
 
-            // $url = $comment;
-
-            // $em->persist($comment);
-
-           
-
-            // $em->flush();
-
-            // $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-
-
-            
-
-           
-
-        }   
-
-        
+        }
 
         return $this->render('GMGameBundle:Game:view.html.twig', array(
             'game' => $game[0],
-            'url' => $url,
+            'comments' => $listComment,
             'form' => $form->createView(),
 
         ));

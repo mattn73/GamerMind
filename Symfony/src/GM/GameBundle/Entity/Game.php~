@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="game")
  * @ORM\Entity(repositoryClass="GM\GameBundle\Repository\GameRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Game
 {
@@ -31,7 +32,7 @@ class Game
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", length=255)
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
 
@@ -73,6 +74,13 @@ class Game
      * @ORM\JoinTable(name="game_platform")
      */
     private $platforms;
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="GM\GameBundle\Entity\Comment", mappedBy="Game", cascade={"remove"})
+     */
+    private $Comments;
 
 
     /**
@@ -303,5 +311,39 @@ class Game
     public function getPlatforms()
     {
         return $this->platforms;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \GM\GameBundle\Entity\Comment $comment
+     *
+     * @return Game
+     */
+    public function addComment(\GM\GameBundle\Entity\Comment $comment)
+    {
+        $this->Comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \GM\GameBundle\Entity\Comment $comment
+     */
+    public function removeComment(\GM\GameBundle\Entity\Comment $comment)
+    {
+        $this->Comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->Comments;
     }
 }

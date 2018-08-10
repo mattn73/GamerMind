@@ -27,6 +27,11 @@ class User extends BaseUser
     private $image;
 
     /**
+     * @ORM\OneToMany(targetEntity="GM\GameBundle\Entity\Comment", mappedBy="user", cascade={"remove"})
+     */
+    private $comments;
+
+    /**
      * Set image
      *
      * @param \GM\UserBundle\Entity\UserImage $image
@@ -53,5 +58,39 @@ class User extends BaseUser
     public function __toString()
     {
         return $this->getUsername();
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \GM\GameBundle\Entity\Comment $comment
+     *
+     * @return User
+     */
+    public function addComment(\GM\GameBundle\Entity\Comment $comment)
+    {
+        $this->Comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \GM\GameBundle\Entity\Comment $comment
+     */
+    public function removeComment(\GM\GameBundle\Entity\Comment $comment)
+    {
+        $this->Comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->Comments;
     }
 }

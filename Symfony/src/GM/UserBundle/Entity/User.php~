@@ -26,26 +26,10 @@ class User extends BaseUser
      */
     private $image;
 
-
     /**
-     * @var string
-     *
-     * @ORM\Column(name="token", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="GM\GameBundle\Entity\Comment", mappedBy="User", cascade={"remove"})
      */
-    private $token;
-
-     /**
-     * @var boolean
-     *
-     * @ORM\Column(name="valid", type="boolean")
-     */
-    private $valid;
-
-    public function __construct()
-    {
-        parent::__construct();
-
-    }
+    private $Comments;
 
     /**
      * Set image
@@ -71,51 +55,8 @@ class User extends BaseUser
         return $this->image;
     }
 
-    /**
-     * Set token
-     *
-     * @param string $token
-     *
-     * @return User
-     */
-    public function setToken($token)
+    public function __toString()
     {
-        $this->token = $token;
-
-        return $this;
-    }
-
-    /**
-     * Get token
-     *
-     * @return string
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /**
-     * Set valid
-     *
-     * @param boolean $valid
-     *
-     * @return User
-     */
-    public function setValid($valid)
-    {
-        $this->valid = $valid;
-
-        return $this;
-    }
-
-    /**
-     * Get valid
-     *
-     * @return boolean
-     */
-    public function getValid()
-    {
-        return $this->valid;
+        return $this->getUsername();
     }
 }

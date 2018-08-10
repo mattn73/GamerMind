@@ -15,18 +15,26 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Comment
 {
-    /**
+   /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
-    /**
+     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
      */
     private $date;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="content", type="text")
      */
     private $content;
 
@@ -37,10 +45,17 @@ class Comment
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="GM\GameBundle\Entity\Game", inversedBy="applications")
+     * @ORM\ManyToOne(targetEntity="GM\GameBundle\Entity\Game", inversedBy="Game")
      * @ORM\JoinColumn(nullable=false)
      */
     private $game;
+
+
+    public function __construct()
+    {
+        $this->date = new \Datetime();
+        
+    }
 
     /**
      * Get id
@@ -98,5 +113,53 @@ class Comment
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \GM\UserBundle\Entity\User $user
+     *
+     * @return Comment
+     */
+    public function setUser(\GM\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \GM\UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set game
+     *
+     * @param \GM\GameBundle\Entity\Game $game
+     *
+     * @return Comment
+     */
+    public function setGame(\GM\GameBundle\Entity\Game $game)
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
+    /**
+     * Get game
+     *
+     * @return \GM\GameBundle\Entity\Game
+     */
+    public function getGame()
+    {
+        return $this->game;
     }
 }
