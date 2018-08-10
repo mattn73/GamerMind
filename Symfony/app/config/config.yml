@@ -1,0 +1,221 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    #esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    #serializer:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
+    fragments:       ~
+    http_method_override: true
+    assets: ~
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   pdo_mysql
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        server_version: 5.7
+        charset:  UTF8
+        types:
+            json: Sonata\Doctrine\Types\JsonType
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #     path:     "%database_path%"
+        # default_connection: default
+        #     connections:
+        #         default:
+        #             driver:   pdo_sqlite
+        #             path:     %kernel.cache_dir%/test.db
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            SonataMediaBundle: ~
+            ApplicationSonataMediaBundle: ~
+            # SonataUserBundle: ~
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+# Stof\DoctrineExtensionsBundle configuration
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+
+# …
+
+fos_user:
+    db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
+    firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
+    user_class:    GM\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+    registration:
+        form:
+            type: GM\UserBundle\Form\RegistrationType
+
+        confirmation:
+            enabled: true
+            from_email:
+                address: "%mailer_user%"
+                sender_name: Gamer Mind
+
+
+
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        # enable the SonataAdminBundle block
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+
+sonata_admin:
+
+    assets:
+        extra_stylesheets: [/css/app.css]
+            
+
+    security:
+        handler:              sonata.admin.security.handler.noop
+
+        role_admin: ROLE_ADMIN
+        role_super_admin: ROLE_SUPER_ADMIN
+    title: 'Gamer Mind'
+    title_logo: logo.png
+
+
+    dashboard:
+        groups:
+            app.admin.group.game:
+                label: Game
+                icon: '<i class="fa fa-gamepad"></i>'
+                items:
+                    - admin.Game
+                    - admin.Platform
+                    - admin.Category
+                    - admin.Image
+
+                roles: [ ROLE_MODERATEUR]
+
+            app.admin.group.user:
+                label: User
+                icon: '<i class="fa fa-user"></i>'
+                items:
+                    - admin.User
+                     
+                roles: [ ROLE_ADMIN]
+
+           
+
+            app.admin.group.misc: ~
+            
+sonata_media:
+    # if you don't use default namespace configuration
+    #class:
+    #    media: MyVendor\MediaBundle\Entity\Media
+    #    gallery: MyVendor\MediaBundle\Entity\Gallery
+    #    gallery_has_media: MyVendor\MediaBundle\Entity\GalleryHasMedia
+    db_driver: doctrine_orm # or doctrine_mongodb, doctrine_phpcr it is mandatory to choose one here
+    default_context: default # you need to set a context
+
+
+    contexts:
+        default:  # the default context is mandatory
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+                - sonata.media.provider.vimeo
+
+            formats:
+                small: { width: 100 , quality: 70}
+                big:   { width: 500 , quality: 70}
+        
+        image:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                icon: { width: 100, quality: 100}
+                thumbnail: { width: 150, quality: 100}
+                preview: { width: 300, quality: 100}
+
+   
+    cdn:
+        server:
+            path: /uploads/media # http://media.sonata-project.org/
+
+    filesystem:
+        local:
+            # directory:  "%kernel.root_dir%/../public/uploads/media" #flex
+            directory:  "%kernel.root_dir%/../web/uploads/media" #non-flex
+            create:     false
+
+
+    # if you don't use default namespace configuration
+    class:
+        media: Application\Sonata\MediaBundle\Entity\Media
+        gallery: Application\Sonata\MediaBundle\Entity\Gallery
+        gallery_has_media: Application\Sonata\MediaBundle\Entity\GalleryHasMedia
+
+    
+
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        product_image:
+            uri_prefix: /uploads/img
+            upload_destination: '%kernel.project_dir%/public/images/products'
+

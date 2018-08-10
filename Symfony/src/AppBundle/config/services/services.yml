@@ -1,0 +1,47 @@
+services:
+      admin.Game:
+            class: AppBundle\Admin\Game\GameAdmin
+            arguments: [~, GM\GameBundle\Entity\Game, ~]
+            tags:
+            - { name: sonata.admin, manager_type: orm, label: Game, group: "app.admin.group.game" }
+            public: true
+           
+
+      admin.Platform:
+            class: AppBundle\Admin\Game\PlatformAdmin
+            arguments: [~, GM\GameBundle\Entity\Platform, ~]
+            tags:
+            - { name: sonata.admin, manager_type: orm, label: Platform, group: "app.admin.group.game" }
+            public: true
+           
+
+      admin.Category:
+            class: AppBundle\Admin\Game\CategoryAdmin
+            arguments: [~, GM\GameBundle\Entity\Category, ~]
+            tags:
+            - { name: sonata.admin, manager_type: orm, label: Category, group: "app.admin.group.game" }
+            public: true
+      
+      admin.Image:
+            class: AppBundle\Admin\Game\ImageAdmin
+            arguments: [~, GM\GameBundle\Entity\Image, ~]
+            tags:
+            - { name: sonata.admin, manager_type: orm, label: Image, group: "app.admin.group.game" }
+            public: true
+
+      admin.User:
+            class: AppBundle\Admin\User\UserAdmin
+            arguments: [~, GM\UserBundle\Entity\User, ~]
+            tags:
+            - { name: sonata.admin, manager_type: orm, label: User, group: "app.admin.group.User" }
+            public: true
+
+                  
+      
+      admin.UserImage:
+            class: AppBundle\Admin\User\UserImageAdmin
+            arguments: [~, GM\UserBundle\Entity\UserImage, ~]
+            tags:
+            - { name: sonata.admin, manager_type: orm, label: UserImage, group: "app.admin.group.User" }
+            public: true
+     

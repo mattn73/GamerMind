@@ -1,0 +1,87 @@
+{% extends "GMGameBundle::layout.html.twig" %}
+
+{% block gmgame_body %}
+
+    {{dump(url)}}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="gameHeader">
+                <h2>{{game.name}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-10">
+            <div class="gameContainer">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <div class="gameImage">
+                            <img src="{{game.image.getWebPath()}}" width="100%"/>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-8 ">
+                        <div class="gameLeft">
+                            <div class="gamePlat">
+
+                                {% for platform in game.platforms %}
+                                    <span>{{platform.name}}</span>
+                                {% endfor %}
+
+                            </div>
+                            <div class="gameCat">
+                                {% for category in game.categories %}
+                                    <span>{{category.name}}</span>
+                                {% endfor %}
+
+                            </div>
+                            <div class="gameRat">
+                                <span class="fas fa-star {% if game.rating > 0 %} checked {% endif %}"></span>
+                                <span class="fas fa-star {% if game.rating > 1 %} checked {% endif %}"></span>
+                                <span class="fas fa-star {% if game.rating > 2 %} checked {% endif %}"></span>
+                                <span class="fas fa-star {% if game.rating > 3 %} checked {% endif %}"></span>
+                                <span class="fas fa-star {% if game.rating > 4 %} checked {% endif %}"></span>
+                            </div>
+                            <div class="gameReaDate">{{ game.releaseDate|date('Y-m-d') }}</div>
+                            <div class="gamePrice">$
+                                {{game.price}}</div>
+                            <div class="gameSum">{{game.description}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="commentContainer">
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                <div class="form-group">
+
+                    <div class="col-sm-10">
+
+                        {{ form_widget(form.content, {'attr': {'class': 'form-control', 'placeholder': 'Write something here..', 'row':'3'} }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        {{ form_widget(form.post, {'attr': {'class': 'btn btn-success btn-circle text-uppercase'}}) }}
+                        {# <button class="btn btn-success btn-circle text-uppercase" type="submit" id="submitComment">
+                            <span class="glyphicon glyphicon-send"></span>
+                            Summit comment</button> #}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

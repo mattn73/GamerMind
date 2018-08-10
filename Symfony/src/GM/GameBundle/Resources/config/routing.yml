@@ -1,0 +1,12 @@
+gm_game_home:
+    path: /
+    defaults:
+        _controller: GMGameBundle:Game:index
+
+
+gm_game_view:
+    path:      /view/{id}
+    defaults:
+        _controller: GMGameBundle:Game:view
+    requirements:
+        id: \d+

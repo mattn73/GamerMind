@@ -1,0 +1,109 @@
+img.admin-preview {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+
+.checked {
+    color: orange;
+}
+
+.gameCard{
+    max-width:31%;
+    border: solid 1px;
+    margin-left:1%;
+    margin-right:1%;
+
+}
+
+.cardImage{
+
+    margin-top:23%;
+    margin-right:2%;
+}
+
+.fa, .fas {
+font-weight: 900;
+font-size: 12px;
+}
+
+.container{
+
+    max-width: 1399px;
+}
+
+.cardSummary{
+
+    height:150px ;
+    margin:4% 0 1% 0;
+    overflow: hidden;
+}
+
+.cardName{
+
+    margin-top: 10%;
+}
+
+
+.gamePlat span {
+
+    background-color: #d7dbde;
+    margin: 1% 2% 3% 0%;
+    min-width: 10px;
+    padding: 1%;
+    font-size: 0.8em;
+
+}
+
+.gameCat span {
+
+    background-color: #95c1ec;
+    margin: 1% 2% 3% 0%;
+    min-width: 10px;
+    padding: 1%;
+    font-size: 0.8em;
+
+}
+
+.gameLeft {
+
+    padding-top: 2%;
+}
+
+.gameContainer {
+
+    border: solid 0.5px gray;
+    padding-top: 1%;
+}
+
+
+
+.gamePlat {
+
+    margin-bottom: 5%;
+}
+
+.gameCat {
+
+    margin-bottom: 2%;
+}
+
+.gameImage img {
+
+    height: 170px;
+    width: 100%;
+}
+
+.gameImage {
+
+    margin: 2%;
+    padding: 2px;
+    margin-left: 11px;
+
+}
+
+.commentContainer{
+
+
+    margin:2% 0;
+}

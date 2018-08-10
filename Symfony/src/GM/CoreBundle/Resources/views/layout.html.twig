@@ -1,0 +1,76 @@
+{# src/GM/CoreBundle/Resources/views/layout.html.twig #}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Gamer Mind{% endblock %}</title>
+
+   
+      {# On charge le CSS de bootstrap depuis le site directement #}
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/app.css">
+     {% block stylesheets %}
+    {% endblock %}
+  </head>
+
+  <body>
+
+  
+    <div id="header">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span> </button>
+  <a class="navbar-brand" href="\"><img src="/logo.png" width='65PX'></a>
+
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" href="game">Games</a>
+      </li>
+     
+    </ul>
+    <li>
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    Connecté en tant que {{ app.user.username }}
+    -
+    <a href="{{ path('fos_user_security_logout') }}"><i class="fas fa-sign-out-alt"></i></a>
+    {% else %}
+    <a href="{{ path('fos_user_security_login') }}"><i class="fas fa-user-ninja"></i></a>
+    {% endif %}
+    
+    
+    </li>
+     </div>
+</nav>
+ </div>
+
+   
+     
+        {% block body %}
+        {% endblock %}
+
+    <hr>
+
+    <footer>
+      <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
+    </footer>
+
+  
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  {% block javascripts %}
+  {% endblock %}
+
+  </body>
+</html>

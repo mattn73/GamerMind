@@ -1,0 +1,104 @@
+{# src/GM/CoremBundle/Resources/views/index.html.twig #}
+
+{% extends "GMCoreBundle::layout.html.twig" %}
+
+{% block title %}
+  Gamer Mind - {{ parent() }}
+{% endblock %}
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/jssonSlider.css">
+        <link rel="stylesheet" href="/css/normalize.css">
+
+    {% endblock %}
+
+{% block body %}
+
+
+
+  <div id="jssor_1" class="jssonSlider">
+        <!-- Loading Screen -->
+        <div data-u="loading" class="jssorl-009-spin jssonloading">
+            <img class="jssonImg" src="/img/spin.svg" />
+        </div>
+        <div data-u="slides" class="jssonSliderDiv">
+            <div>
+                <img data-u="image" src="/img/001.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/002.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/003.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/004.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/005.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/006.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/007.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/008.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/009.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/010.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/011.jpg" />
+            </div>
+            <div>
+                <img data-u="image" src="/img/012.jpg" />
+            </div>
+        </div>
+        <!-- Bullet Navigator -->
+        <div data-u="navigator" class="navBullet jssorb051 " data-autocenter="1" data-scale="0.5" data-scale-bottom="0.75">
+            <div data-u="prototype" class="i" style="width:16px;height:16px;">
+                <svg viewbox="0 0 16000 16000" class="navBullet">
+                    <circle class="b" cx="8000" cy="8000" r="5800"></circle>
+                </svg>
+            </div>
+        </div>
+        <!-- Arrow Navigator -->
+        <div data-u="arrowleft" class="jssora051 arrowLeft" data-autocenter="2" data-scale="0.75" data-scale-left="0.75">
+            <svg viewbox="0 0 16000 16000" class="viewBox">
+                <polyline class="a" points="11040,1920 4960,8000 11040,14080 "></polyline>
+            </svg>
+        </div>
+        <div data-u="arrowright" class="jssora051 arrowRight" data-autocenter="2" data-scale="0.75" data-scale-right="0.75">
+            <svg viewbox="0 0 16000 16000" class="viewBox">
+                <polyline class="a" points="4960,1920 11040,8000 4960,14080 "></polyline>
+            </svg>
+        </div>
+    </div>
+
+
+
+ <div class="container">
+
+      <div id="content" class="col-md-12">
+  {# On définit un sous-titre commun à toutes les pages du bundle, par exemple #}
+  <h1>Home Page</h1>
+
+  <hr>
+
+</div>
+</div>
+
+ {% block javascripts %}
+
+    <script src="/js/jssonSlider.js"></script>
+
+  
+{% endblock %}
+  <script type="text/javascript">jssor_1_slider_init();</script>
+
+{% endblock %}

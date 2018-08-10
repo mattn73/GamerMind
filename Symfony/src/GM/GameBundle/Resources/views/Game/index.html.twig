@@ -1,0 +1,36 @@
+{% extends "GMGameBundle::layout.html.twig" %}
+
+{% block gmgame_body %}
+
+    <div class="row">
+        {% for game in list %}
+            <div class=" col-md-4  row gameCard">
+                <div class="col-md-8">
+                    <div class="cardName">{{game.name}}</div>
+                    <div class="cardSummary">
+                        <p>{{game.description}}</p>
+                    </div>
+                    <div class="cardReadM">
+                        <a href="view/{{game.id}}">Read More</a>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+
+                    <div class="cardImage">
+                        <img src="{{game.image.getWebPath()}}" width="100px" height="100px"/>
+                    </div>
+                    <div class="cardRating">
+                        <span class="fas fa-star {% if game.rating > 0 %} checked {% endif %}"></span>
+                        <span class="fas fa-star {% if game.rating > 1 %} checked {% endif %}"></span>
+                        <span class="fas fa-star {% if game.rating > 2 %} checked {% endif %}"></span>
+                        <span class="fas fa-star {% if game.rating > 3 %} checked {% endif %}"></span>
+                        <span class="fas fa-star {% if game.rating > 4 %} checked {% endif %}"></span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

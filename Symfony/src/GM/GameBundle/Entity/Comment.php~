@@ -1,0 +1,102 @@
+<?php
+
+namespace GM\GameBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+
+
+/**
+ * comment
+ *
+ * @ORM\Table(name="comment")
+ * @ORM\Entity(repositoryClass="GM\GameBundle\Repository\CommentRepository")
+ * @ORM\HasLifecycleCallbacks()
+ */
+class Comment
+{
+    /**
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     */
+    private $date;
+
+    /**
+     * @var string
+     */
+    private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GM\UserBundle\Entity\User", inversedBy="User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="GM\GameBundle\Entity\Game", inversedBy="applications")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Comment
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Comment
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+}
